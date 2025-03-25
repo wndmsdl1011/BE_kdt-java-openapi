@@ -43,7 +43,7 @@ public class DisasterMessageController {
             @RequestParam(defaultValue = "10") int size)
     {
         Pageable pageable = PageRequest.of(page - 1, size);
-        return disasterMessageService.findAll(pageable);
+        return disasterMessageService.findAllByOrderByCrtDtDesc(pageable);
     }
 
 

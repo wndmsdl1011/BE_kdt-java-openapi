@@ -22,11 +22,11 @@ public class NewsArticleService {
     }
 
     public Page<NewsArticle> getAllNewsArticles(Pageable pageable) {
-        return newsArticleRepository.findAll(pageable);
+        return newsArticleRepository.findAllByOrderByYnaYmdDesc(pageable);
     }
 
     public Page<NewsArticleDescDto> getNewsArticleByDescription(Pageable pageable) {
-        Page<NewsArticle> newsArticles = newsArticleRepository.findAll(pageable);
+        Page<NewsArticle> newsArticles = newsArticleRepository.findAllByOrderByYnaYmdDesc(pageable);
         List<NewsArticleDescDto> newsDescDto = newsArticles.getContent().stream()
                 .map(article -> new NewsArticleDescDto(
                         article.getYnaTtl(),
@@ -37,7 +37,7 @@ public class NewsArticleService {
     }
 
     public Page<NewsArticleResponseDto> searchNewsArticles(String ynaTtl,Pageable pageable) {
-        Page<NewsArticle> newsArticles = newsArticleRepository.findByYnaTtlContainingIgnoreCase(ynaTtl, pageable);
+        Page<NewsArticle> newsArticles = newsArticleRepository.findByYnaTtlContainingIgnoreCaseOrderByYnaYmdDesc(ynaTtl, pageable);
         if(newsArticles.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"검색어에 맞는 기사가 없습니다!");
         }

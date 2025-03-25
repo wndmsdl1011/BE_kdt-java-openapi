@@ -16,11 +16,11 @@ public class DisasterMessageService {
         this.disasterMessageRepository = disasterMessageRepository;
     }
 
-    public Page<DisasterMessage> findAll(Pageable pageable) {
-        return disasterMessageRepository.findAll(pageable);
+    public Page<DisasterMessage> findAllByOrderByCrtDtDesc(Pageable pageable) {
+        return disasterMessageRepository.findAllByOrderByCrtDtDesc(pageable);
     }
 
     public Page<DisasterMessage> searchDisasterMessages(String keyword, Pageable pageable) {
-        return disasterMessageRepository.findByMsgCnContaining(keyword, pageable);
+        return disasterMessageRepository.findByMsgCnContainingOrderByCrtDtDesc(keyword, pageable);
     }
 }
